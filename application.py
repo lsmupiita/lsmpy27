@@ -28,6 +28,8 @@ class Traduccion(Resource):
         oracionTraducida=args['oracion']
         global token
         token=args['codigo']
+        print args['oracion']
+        print args['codigo']
         return {
             'estado':'envio exitoso'
         }
@@ -51,7 +53,7 @@ class Registro(Resource):
         return {'mensaje':dataBase.nuevoregistro(args['correo'])}          
 
 
-api.add_resource(Traduccion,'/')
+api.add_resource(Traduccion,'/traduccion')
 
 api.add_resource(Codigo,'/codigo')
 api.add_resource(Registro,'/registro')
