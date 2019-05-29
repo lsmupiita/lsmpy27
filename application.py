@@ -8,7 +8,7 @@ app = Flask(__name__)
 api = Api(app)
 
 parser = reqparse.RequestParser()
-oraciontraducida="Sin oracion"
+oracionTraducida="Sin oracion"
 token="00000000"
 
 class Traduccion(Resource):
@@ -16,9 +16,7 @@ class Traduccion(Resource):
     def get(self):
         return {
             'token': token,
-            'sujeto': 'perro',
-            'verbo': 'juega',
-            'predicado': 'pelota'
+            'traduccion': oracionTraducida
         }
 
     def post(self):
@@ -27,6 +25,8 @@ class Traduccion(Resource):
         args = parser.parse_args()
         global token
         token=args['codigo']
+        global oracionTraducida
+        oracionTraducida=operaciones.traduccionAutomatica(args['oracion'])
         print args['codigo']
         return {
             'palabras':operaciones.traduccionAutomatica(args['oracion'])
