@@ -154,6 +154,7 @@ def traduccionAutomatica(texto):
             print "#######################################"
             print "texto ingresado "+texto
             palabras=""
+            listaTraducir.reverse()
             for tupla in listaTraducir:
                 lemma=tupla[0]
                 palabras+=lemma+","
