@@ -81,7 +81,7 @@ def hacerListaTraducir(listaArbol):
 def iniciarFreeling():
     # "default" no funciono aqui y se tuvo que cambiar a "es_MX.UTF-8"
     # este valor se obtuvo de poner en la terminal "locale"
-    freeling.util_init_locale("es_MX.UTF-8")
+    freeling.util_init_locale("default")
     # create options set for maco analyzer. Default values are Ok, except for data files.
     op = freeling.maco_options("es")
     op.set_data_files("",
