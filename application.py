@@ -27,7 +27,6 @@ class Traduccion(Resource):
         token=args['codigo']
         global oracionTraducida
         oracionTraducida=operaciones.traduccionAutomatica(args['oracion'])
-        print args['codigo']
         return {
             'palabras':operaciones.traduccionAutomatica(args['oracion'])
         }
