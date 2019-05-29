@@ -148,6 +148,11 @@ def traduccionAutomatica(texto):
                     listaTraducir = hacerListaTraducir(sinStopwords)
 
                     print "Arbol no encontrado"
+            else:
+                    arbolValido = 'La oración no coincide con ninguna gramática registrada. Se hará una traducción literal'
+                    listaTraducir = hacerListaTraducir(sinStopwords)
+
+                    print "Arbol no encontrado"
 
             print "#######################################"
             print "#######################################"
