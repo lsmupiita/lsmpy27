@@ -1,0 +1,136 @@
+[
+	{
+		"etiqueta" : "DP",
+		"dejar" : ["su", "mi", "tu", "nuestro"]
+	},
+	{
+		"etiqueta" : "DD",
+		"quitar" : []
+	},
+	{
+		"etiqueta" : "DI",
+		"quitar" : []
+	},
+	{
+		"etiqueta" : "SP",
+		"formal" : true,
+		"informal" : false,
+		"dejar" : ["ante", "con", "de", "en", "para", "junto_a"]
+	},
+	{
+		"etiqueta" : "SP",
+		"dejar" : ["bajo", "contra", "sobre", "entre", "por", "sin", "lejos"],
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["encima_de"],
+				"lemmaDestino" : "sobre"
+			},
+			{
+				"lemmaOrigen" : ["excepto"],
+				"lemmaDestino" : "no"
+			}
+		]
+	},
+	{
+		"etiqueta" : "PX",
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["mías", "míos", "mía"],
+				"lemmaDestino" : "mío"
+			},
+			{
+				"lemmaOrigen" : ["suyo"],
+				"lemmaDestino" : "tuyo"
+			}
+		]
+	},
+	{
+		"etiqueta" : "PD",
+		"dejar" : ["este", "aquel", "ese"]
+	},
+	{
+		"etiqueta" : "PI",
+		"dejar" : ["algo", "bastante", "nadie", "otro", "nada"]
+	},
+	{
+		"etiqueta" : "DA",
+		"quitar" : []
+	},
+	{
+		"etiqueta" : "RG",
+		"dejar" : ["ahora", "antes", "mañana", "tarde", "anoche", "cuando", "después", "pronto", "siempre", "ayer", "anteayer", "temprano", "hoy"],
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["ya"],
+				"lemmaDestino" : "ahora"
+			}
+		]
+	},
+	{
+		"etiqueta" : "RG",
+		"dejar" : ["arriba", "encima", "afuera", "ahí", "aquí", "cerca", "abajo", "dentro", "junto", "detrás", "lejos_de", "fuera", "adelante", "enfrente", "debajo", "atrás"],
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["allí"],
+				"lemmaDestino" : "ahí"
+			}
+		]
+	},
+	{
+		"etiqueta" : "RG",
+		"dejar" : ["menos", "mitad", "más", "cuanto", "poco", "muy", "algo"],
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["medio"],
+				"lemmaDestino" : "mitad"
+			},
+			{
+				"lemmaOrigen" : ["salvo"],
+				"lemmaDestino" : "no"
+			},
+			{
+				"lemmaOrigen" : ["tan"],
+				"lemmaDestino" : "igual"
+			},
+			{
+				"lemmaOrigen" : ["tanto"],
+				"lemmaDestino" : "mucho"
+			}
+		]
+	},
+	{
+		"etiqueta" : "RG",
+		"dejar" : ["bien", "mal", "cómo", "despacio", "cuál", "aprisa"],
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["apenas"],
+				"lemmaDestino" : "ahora"
+			}
+		]
+	},
+	{
+		"etiqueta" : "RG",
+		"dejar" : ["sí, cierto"]
+	},
+	{
+		"etiqueta" : "RG",
+		"dejar" : ["no"],
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["nada", "tampoco", "nunca", "jamás"],
+				"lemmaDestino" : "no"
+			}
+		]
+	},
+	{
+		"etiqueta" : "RG",
+		"dejar" : ["tal_vez"],
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["quizá", "acaso"],
+				"lemmaDestino" : "tal_vez"
+			}
+		]
+	}
+]
+

@@ -1,7 +1,8 @@
+
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 
-import dataBase
+import dataBase, operaciones
 
 app = Flask(__name__)
 api = Api(app)
@@ -24,14 +25,11 @@ class Traduccion(Resource):
         parser.add_argument('codigo', type=str)
         parser.add_argument('oracion', type=str)
         args = parser.parse_args()
-        global oracionTraducida
-        oracionTraducida=args['oracion']
         global token
         token=args['codigo']
-        print args['oracion']
         print args['codigo']
         return {
-            'estado':'envio exitoso'
+            'palabras':operaciones.traduccionAutomatica(args['oracion'])
         }
     
 class Codigo(Resource):

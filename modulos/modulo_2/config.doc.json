@@ -1,0 +1,112 @@
+/*
+{
+	"etiqueta"	:	"TAG",
+	"formal"	  : true,
+	"informal"	  : true,
+
+	"quitar"	:	[ "lemma1", "lemma2" ],
+
+	"dejar"		  :	[ ],
+
+	"transformar" : [
+		{
+			"lemmaOrigen"	: [ "foo", "bar" ]
+			"lemmaDestino"	: "lorem",
+		},
+		...
+	]
+}
+- "Formal" e "informal" son para especificar si la regla aplica para traduccion
+  formal o informal. Si no se encuentra, se toma como true por default para ambos
+- Si hay alguna contradiccion en las reglas (que algun lemma se encuentre
+  en ambos "quitar" y "dejar", se arroja una excepcion)
+
+- Si "quitar" o "dejar" son arreglos vacíos, se considera que se
+  quitan o se dejan todos los lemmas de esa etiqueta. No pueden ser ambos vacios
+- Sería recomendable agregar "formal" e "informal" a la regla.
+  Si no están, se consideran como true
+
+- Si "quitar" no se encuentra, no se intenta quitar nada. Lo mismo para "dejar"
+- Debe haber al menos uno de los 3 arreglos (quitar, dejar, transformar). De lo
+  contrario, la regla no se considera válida y se arroja una excepción.
+- Cuando quitar y dejar esten en la misma regla, en realidad solo se consdierara "quitar"
+  porque aunque este especificado algo en dejar, lo que no se quite por default se deja
+
+- Las etiquetas que se encuentren y no esten en el archivo de configuracion, se dejan.
+*/
+
+[
+	// {
+	// 	"etiqueta" : "AQ",
+	// 	"dejar" : []
+	// },
+	{
+		"etiqueta" : "DP",
+		"dejar" : ["su", "mi", "tu", "nuestro"]
+	},
+	// {
+	// 	"etiqueta" : "MC",
+	// 	"dejar" : []
+	// },
+	// {
+	// 	"etiqueta" : "MO",
+	// 	"dejar" : []
+	// }
+	{
+		"etiqueta" : "DD",
+		"quitar" : []
+	},
+	{
+		"etiqueta" : "DI",
+		"quitar" : []
+	},
+	// {
+	// 	"etiqueta" : "DT",
+	// 	"dejar" : []
+	// }
+	// {
+	// 	"etiqueta" : "DE",
+	// 	"dejar" : []
+	// }
+	{
+		"etiqueta" : "SP",
+		"formal" : true,
+		"informal" : false,
+		"dejar" : ["ante", "con", "de", "en", "para"]
+	},
+	{
+		"etiqueta" : "SP",
+		"dejar" : ["bajo", "contra", "sobre", "entre", "por", "sin"]
+	},
+	// {
+	// 	"etiqueta" : "PP",
+	// 	"dejar" : []
+	// }
+	{
+		"etiqueta" : "PX",
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["mías", "míos", "mía"],
+				"lemmaDestino" : "mío"
+			},
+			{
+				"lemmaOrigen" : ["suyo"],
+				"lemmaDestino" : "tuyo"
+			}
+			// El lemma siempre es "nuestro"
+			// {
+			// 	"lemmaOrigen" : ["nuestro", "nuestra"],
+			// 	"lemmaDestino" : "nuestro"
+			// },
+		]
+	},
+	{
+		"etiqueta" : "PD",
+		"dejar" : ["este", "aquel", "ese"]
+	},
+	{
+		"etiqueta" : "PI",
+		"dejar" : ["algo", "bastante", "nadie", "otro", "nada"]
+	}
+]
+
