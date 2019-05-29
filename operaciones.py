@@ -162,6 +162,3 @@ def traduccionAutomatica(texto):
 
 
     return palabras
-
-
-traduccionAutomatica("La cama es suave")
