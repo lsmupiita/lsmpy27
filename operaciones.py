@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import freeling
@@ -30,7 +31,7 @@ def consultarLista(listaArbol):
     listaBD = []
     # Busca las imagenes contenidas en la lista
     for tupla in listaArbol:
-        busq = bd.buscarPalabra(tupla)
+        busq = dataBase.buscarPalabra(tupla)
         # El resultado puede ser una lista (si fue deletreada), itera sobre ella
         for fila in busq:
             # Guarda la ruta de la imagen

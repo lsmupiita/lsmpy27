@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'Determinante Preposicion Sustantivo VerboOracion : SN SVSN : Determinante SustantivoSN : DeterminanteSV : Verbo SPrepSPrep : Preposicion SN'
+_lr_signature = 'AdjetivoCalif Adverbio Determinante Sustantivo VerboOracion : SN SVSN : Determinante SustantivoSN : DeterminanteSV : Verbo AdjetivoCalif\n              | Verbo Adverbio\n              | Verbo SustantivoSV : Verbo SAdvSAdv : Adverbio AdjetivoCalif'
     
-_lr_action_items = {'Determinante':([0,8,],[2,2,]),'Verbo':([2,3,4,],[-3,5,-2,]),'Preposicion':([5,],[8,]),'Sustantivo':([2,],[4,]),'$end':([1,2,4,6,7,9,],[0,-3,-2,-1,-4,-5,]),}
+_lr_action_items = {'AdjetivoCalif':([6,8,],[7,11,]),'Sustantivo':([2,6,],[4,10,]),'Verbo':([2,3,4,],[-3,6,-2,]),'Determinante':([0,],[2,]),'Adverbio':([6,],[8,]),'$end':([1,5,7,8,9,10,11,],[0,-1,-4,-5,-7,-6,-8,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'Oracion':([0,],[1,]),'SPrep':([5,],[7,]),'SN':([0,8,],[3,9,]),'SV':([3,],[6,]),}
+_lr_goto_items = {'Oracion':([0,],[1,]),'SN':([0,],[3,]),'SAdv':([6,],[9,]),'SV':([3,],[5,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,9 +27,12 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> Oracion","S'",1,None,None,None),
-  ('Oracion -> SN SV','Oracion',2,'p_Oracion','Estructura4.py',27),
-  ('SN -> Determinante Sustantivo','SN',2,'p_SN','Estructura4.py',35),
-  ('SN -> Determinante','SN',1,'p_SN1','Estructura4.py',42),
-  ('SV -> Verbo SPrep','SV',2,'p_SV','Estructura4.py',48),
-  ('SPrep -> Preposicion SN','SPrep',2,'p_SPrep','Estructura4.py',55),
+  ('Oracion -> SN SV','Oracion',2,'p_Oracion','Estructura1.py',28),
+  ('SN -> Determinante Sustantivo','SN',2,'p_SN','Estructura1.py',35),
+  ('SN -> Determinante','SN',1,'p_SN1','Estructura1.py',42),
+  ('SV -> Verbo AdjetivoCalif','SV',2,'p_SV','Estructura1.py',48),
+  ('SV -> Verbo Adverbio','SV',2,'p_SV','Estructura1.py',49),
+  ('SV -> Verbo Sustantivo','SV',2,'p_SV','Estructura1.py',50),
+  ('SV -> Verbo SAdv','SV',2,'p_SV1','Estructura1.py',57),
+  ('SAdv -> Adverbio AdjetivoCalif','SAdv',2,'p_SAdv','Estructura1.py',64),
 ]
