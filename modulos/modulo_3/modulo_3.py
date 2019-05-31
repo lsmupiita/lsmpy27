@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from Estructura1 import Parser_Estructura_1
 from Estructura2 import Parser_Estructura_2

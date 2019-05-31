@@ -27,12 +27,12 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> Oracion","S'",1,None,None,None),
-  ('Oracion -> SN SV','Oracion',2,'p_Oracion','Estructura1.py',28),
-  ('SN -> Determinante Sustantivo','SN',2,'p_SN','Estructura1.py',35),
-  ('SN -> Determinante','SN',1,'p_SN1','Estructura1.py',42),
-  ('SV -> Verbo AdjetivoCalif','SV',2,'p_SV','Estructura1.py',48),
-  ('SV -> Verbo Adverbio','SV',2,'p_SV','Estructura1.py',49),
-  ('SV -> Verbo Sustantivo','SV',2,'p_SV','Estructura1.py',50),
-  ('SV -> Verbo SAdv','SV',2,'p_SV1','Estructura1.py',57),
-  ('SAdv -> Adverbio AdjetivoCalif','SAdv',2,'p_SAdv','Estructura1.py',64),
+  ('Oracion -> SN SV','Oracion',2,'p_Oracion','Estructura1.py',29),
+  ('SN -> Determinante Sustantivo','SN',2,'p_SN','Estructura1.py',36),
+  ('SN -> Determinante','SN',1,'p_SN1','Estructura1.py',43),
+  ('SV -> Verbo AdjetivoCalif','SV',2,'p_SV','Estructura1.py',49),
+  ('SV -> Verbo Adverbio','SV',2,'p_SV','Estructura1.py',50),
+  ('SV -> Verbo Sustantivo','SV',2,'p_SV','Estructura1.py',51),
+  ('SV -> Verbo SAdv','SV',2,'p_SV1','Estructura1.py',58),
+  ('SAdv -> Adverbio AdjetivoCalif','SAdv',2,'p_SAdv','Estructura1.py',65),
 ]
