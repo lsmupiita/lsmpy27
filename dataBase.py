@@ -145,52 +145,58 @@ def registroAlumno(nombre,apellidoP,apellidoM,correo):
 
 def entrarClase(codigo,correo):
     respuesta=""
-    if comprobarExistencia(codigo)=="Correcto":
-        if buscarClase(codigo)=="Incorrecto":
-            cnx =abrirConexion()
-            cursor = cnx.cursor()
-            query=("select alumnos from profesor where codigo = %s")
-            cursor.execute(query,codigo)
-            results = cursor.fetchall()
-            for row in results:
-                alumnos = row[0]
-            alumnos+=1
-            query=("update profesor set alumnos=%s where codigo=%s")
-            cursor.execute(query,(alumnos,codigo))
-            query=("update alumno set clase=%s where correo=%s")
-            cursor.execute(query,(codigo,correo))
-            cnx.commit()
-            cnx.close()
-            respuesta="Bienvenido"
+    if existenciaAlumno(correo)=="Correcto":
+        if comprobarExistencia(codigo)=="Correcto":
+            if buscarClase(codigo)=="Incorrecto":
+                cnx =abrirConexion()
+                cursor = cnx.cursor()
+                query=("select alumnos from profesor where codigo = %s")
+                cursor.execute(query,codigo)
+                results = cursor.fetchall()
+                for row in results:
+                    alumnos = row[0]
+                alumnos+=1
+                query=("update profesor set alumnos=%s where codigo=%s")
+                cursor.execute(query,(alumnos,codigo))
+                query=("update alumno set clase=%s where correo=%s")
+                cursor.execute(query,(codigo,correo))
+                cnx.commit()
+                cnx.close()
+                respuesta="Bienvenido"
+            else:
+                respuesta="Ya estas dentro de esta clase"
         else:
-            respuesta="Ya estas dentro de esta clase"
+            respuesta="No existe una clase con este código"
     else:
-        respuesta="No existe una clase con este código"
+        respuesta="No existe el correo ingresado"
     return respuesta
 
 def salirClase(codigo,correo):
     respuesta=""
-    if comprobarExistencia(codigo)=="Correcto":
-        if buscarClase(codigo)=="Correcto":
-            cnx =abrirConexion()
-            cursor = cnx.cursor()
-            query=("select alumnos from profesor where codigo = %s")
-            cursor.execute(query,codigo)
-            results = cursor.fetchall()
-            for row in results:
-                alumnos = row[0]
-            alumnos-=1
-            query=("update profesor set alumnos=%s where codigo=%s")
-            cursor.execute(query,(alumnos,codigo))
-            query=("update alumno set clase=%s where correo=%s")
-            cursor.execute(query,("00000000",correo))
-            cnx.commit()
-            cnx.close()
-            respuesta="Saliste con exito"
+    if existenciaAlumno(correo)=="Correcto":
+        if comprobarExistencia(codigo)=="Correcto":
+            if buscarClase(codigo)=="Correcto":
+                cnx =abrirConexion()
+                cursor = cnx.cursor()
+                query=("select alumnos from profesor where codigo = %s")
+                cursor.execute(query,codigo)
+                results = cursor.fetchall()
+                for row in results:
+                    alumnos = row[0]
+                alumnos-=1
+                query=("update profesor set alumnos=%s where codigo=%s")
+                cursor.execute(query,(alumnos,codigo))
+                query=("update alumno set clase=%s where correo=%s")
+                cursor.execute(query,("00000000",correo))
+                cnx.commit()
+                cnx.close()
+                respuesta="Saliste con exito"
+            else:
+                respuesta="No estas dentro de esta clase"
         else:
-            respuesta="No estas dentro de esta clase"
+            respuesta="No existe una clase con este código"
     else:
-        respuesta="No existe una clase con este código"
+        respuesta="No existe el correo ingresado"
     return respuesta
 
 def terminarClase(codigo):
