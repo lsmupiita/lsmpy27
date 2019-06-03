@@ -28,5 +28,5 @@ print "######################"
 print buscarTraduccion("123456",stack)
 
 print "hacer pop"
-stack.pop(1)
+stack.pop(2)
 print stack

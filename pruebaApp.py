@@ -21,7 +21,7 @@ def unirLista(codigo,traduccion,lista):
     alumnos=dataBase.numeroAlumnos(codigo)
     resultado=list()
     aux=[codigo,alumnos,traduccion]
-    resultado=aux+lista
+    resultado=lista+aux
     return resultado
 
 def buscarTraduccion(codigo,lista):
@@ -34,17 +34,15 @@ def buscarTraduccion(codigo,lista):
 
 def validarStack(indice,stack):
 
-    print stack[indice+1]
     if int(stack[indice+1])=="0":
-        print "ya tiene cero alumnos"
+
         stack.pop[indice]
         stack.pop[indice+1]
         stack.pop[indice+2]
-    else:
-        stack[indice]=int(stack[indice+1])-1
+
     return stack
 
-#######################################################
+########################################################
 #######################################################
 app = Flask(__name__)
 api = Api(app)
@@ -77,18 +75,21 @@ class RecibirTraduccion(Resource):
         parser.add_argument('codigo', type=str)
         args = parser.parse_args()
         indice=buscarTraduccion(args['codigo'],stack)
-        print indice
+
         if indice!="Sin coincidencia":
             alumnos=stack[indice+1]
             palabras=stack[indice+2]
-            global stack
-            stack=validarStack(indice,stack)
-            if alumnos!="0":
+            if alumnos!=0 and (alumnos-1)!=0:
+                stack[indice+1]=int(stack[indice+1])-1
                 return {'traduccion': palabras}
             else:
-                return {'traduccion': ['sin traduccion']}
+                stack.pop(indice+2)
+                stack.pop(indice+1)
+                stack.pop(indice)
+                return {'traduccion': palabras}
         else:
             return {'traduccion': ['sin traduccion']}
+        return {'traduccion': ['sin traduccion']}
 
     
 class Codigo(Resource):
