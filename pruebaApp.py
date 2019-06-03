@@ -33,6 +33,7 @@ def buscarTraduccion(codigo,lista):
     return "Sin coincidencia"
 
 def validarStack(indice,stack):
+
     print stack[indice+1]
     if int(stack[indice+1])=="0":
         print "ya tiene cero alumnos"
@@ -40,7 +41,7 @@ def validarStack(indice,stack):
         stack.pop[indice+1]
         stack.pop[indice+2]
     else:
-        stack[indice]=int(stack[indice])-1
+        stack[indice]=int(stack[indice+1])-1
     return stack
 
 #######################################################
@@ -49,7 +50,7 @@ app = Flask(__name__)
 api = Api(app)
 
 parser = reqparse.RequestParser()
-oracionTraducida="Sin oracion"
+oracionTraducida=["Sin oracion"]
 token="00000000"
 stack=list()
 
@@ -85,9 +86,9 @@ class RecibirTraduccion(Resource):
             if alumnos!="0":
                 return {'traduccion': palabras}
             else:
-                return {'traduccion': 'sin traduccion'}
+                return {'traduccion': ['sin traduccion']}
         else:
-            return {'traduccion': 'sin traduccion'}
+            return {'traduccion': ['sin traduccion']}
 
     
 class Codigo(Resource):
