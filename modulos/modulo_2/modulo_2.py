@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import json
 
 class ConfigFileError(Exception):
@@ -113,14 +116,17 @@ def quitarStopwords(listaOriginal, archivoConfig, esFormal = True):
     Returns:
         una copia de la lista original pero ya con las palabras removidas
     """
+    print "si llega aqui"
+    for f in listaOriginal:
+        print f
     # Procesar
     listaResultante = list()
     for (lemma, tag, id_colocacion, palabra) in listaOriginal:
         # Saltarse si es una colocacion
-        if id_colocacion == -1:
+        if id_colocacion != -1:
             listaResultante.append( (lemma,tag, id_colocacion, palabra) )
             continue
-        print "PROBANDO CON %s", lemma
+        #print "PROBANDO CON" + lemma
         # Si no es colocacion, continuar
         typeOfTranslation = "formal" if esFormal else "informal"
         tagCopy = tag
@@ -197,7 +203,7 @@ def getTagPrefix(completeTag):
         elif completeTag.startswith('N'):
             return completeTag[:6]
         elif completeTag.startswith('V'):
-            return completeTag[:3] 
+            return completeTag[:4] 
         elif completeTag.startswith('P'):
             return completeTag[:2]
         elif completeTag.startswith('C'):

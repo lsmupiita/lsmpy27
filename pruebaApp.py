@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#import sys
-#reload(sys)
-#sys.setdefaultencoding('utf-8')
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+print "ñaña app"
 
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
@@ -22,14 +23,7 @@ parser = reqparse.RequestParser()
 oracionTraducida="Sin oracion"
 token="00000000"
 
-class Traduccion(Resource):
-    
-    def get(self):
-        return {
-            'token': token,
-            'traduccion': oracionTraducida
-        }
-
+class EnviarTraduccion(Resource):
     def post(self):
         parser.add_argument('codigo', type=str)
         parser.add_argument('oracion', type=str)
@@ -49,6 +43,14 @@ class Traduccion(Resource):
         return {
             'palabras':oracionTraducida
         }
+class RecibirTraduccion(Resource):
+    def post(self):
+        parser.add_argument('codigo', type=str)
+        args = parser.parse_args()
+        return {
+            'traduccion': oracionTraducida
+        }
+
     
 class Codigo(Resource):
     def post(self):
@@ -56,17 +58,40 @@ class Codigo(Resource):
             args = parser.parse_args()
             return { 'codigo':dataBase.generarCodigo(args['correo']) }
 
-class EntrarClase(Resource):
+class Clase(Resource):
     def post(self):
             parser.add_argument('codigo', type=str)
+            parser.add_argument('tipo', type=str)
+            parser.add_argument('accion', type=str)
+            parser.add_argument('correo', type=str)
             args = parser.parse_args()
-            return { 'mensaje':dataBase.comprobarExistencia(args['codigo']) }
+            if args['tipo']=="alumno" and args['accion']=="entrar":
+                return { 'mensaje':dataBase.entrarClase(args['codigo'],args['correo']) }
+            elif args['tipo']=="alumno" and args['accion']=="salir":
+                return { 'mensaje':dataBase.salirClase(args['codigo'],args['correo']) }
+            elif args['tipo']=="profesor" and args['accion']=="terminar":
+                return { 'mensaje':dataBase.terminarClase(args['codigo']) }
 
-class Registro(Resource):
+class LoginAlumno(Resource):
+    def post(self):
+            parser.add_argument('correo', type=str)
+            args = parser.parse_args()
+            return { 'mensaje':dataBase.existenciaAlumno(args['correo']) }
+
+class RegistroProfesor(Resource):
     def post(self):
         parser.add_argument('correo',type=str)  
         args = parser.parse_args()
-        return {'mensaje':dataBase.nuevoregistro(args['correo'])}   
+        return {'mensaje':dataBase.registroProfesor(args['correo'])}   
+
+class RegistroAlumno(Resource):
+    def post(self):
+        parser.add_argument('nombre', type=str)
+        parser.add_argument('apellidoP', type=str) 
+        parser.add_argument('apellidoM', type=str) 
+        parser.add_argument('correo', type=str)
+        args = parser.parse_args()
+        return {'mensaje':dataBase.registroAlumno(args['nombre'],args['apellidoP'],args['apellidoM'],args['correo'])}   
 
 class Prueba(Resource):
     def post(self):
@@ -82,13 +107,17 @@ class Prueba(Resource):
         return {'palabras':resultado}        
 
 
-api.add_resource(Traduccion,'/traduccion')
+api.add_resource(EnviarTraduccion,'/enviarTraduccion')
+api.add_resource(RecibirTraduccion,'/recibirTraduccion')
 
 api.add_resource(Codigo,'/codigo')
-api.add_resource(Registro,'/registro')
-api.add_resource(EntrarClase,'/entrarClase')
+api.add_resource(RegistroProfesor,'/registroProfesor')
+api.add_resource(RegistroAlumno,'/registroAlumno')
+api.add_resource(Clase,'/clase')
+api.add_resource(LoginAlumno,'/loginAlumno')
+
 api.add_resource(Prueba,'/prueba')
 
 if __name__ == '__main__':
-    #app.run(debug=True, host='localhost', port=5000)
-    app.run(debug=True, host='10.0.1.4', port=5000) 
+    app.run(debug=True, host='localhost', port=5000)
+    #app.run(debug=True, host='10.0.1.4', port=5000) 

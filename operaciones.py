@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-import freeling
 import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+print "ñañañaña"
+import freeling
 # Para hacer operaciones con la BD
 import dataBase
 # Importar modulos
 from modulos.modulo_1.modulo_1 import *
 from modulos.modulo_2.modulo_2 import *
-from modulos.modulo_3.modulo_3 import *
+#from modulos.modulo_3.modulo_3 import *
 
 # Constantes Freelinsg
 FREELINGDIR = "/usr/local"
@@ -70,10 +73,33 @@ def hacerListaTraducir(listaArbol):
                         lista.append(('mujer', 'NCFS00', colocacion))
                 if numero == 'P':  # Añade seña de muchos si es plural
                     lista.append(('mucho', 'RG', colocacion))
+            elif etiqueta[0]=='V':
+                print "Encontre un verbo"
+                lista.append((lemma, etiqueta, colocacion))
+                tiempo=etiqueta[3]
+                if tiempo == 'F':
+                 #   print "futuro"
+                    lista.append(('mañana', 'RG', colocacion))
             else:
                 lista.append((lemma, etiqueta, colocacion))
         else:
             lista.append((lemma, etiqueta, colocacion))
+    return lista
+
+def acomodarPalabras(listaPalabras):
+    lista = []
+    listaaux=[]
+    for tupla in listaPalabras:
+        """ PALABRA ORIGINAL """
+        lemma = tupla[0]
+        etiqueta = tupla[1]
+        colocacion = tupla[2]
+        etiqueta = getTagPrefix(etiqueta)
+        if etiqueta[0] == 'V':
+            lista.append(lemma)
+        else:
+            listaaux.append(lemma)
+    lista=listaaux+lista
     return lista
 
 # Inicializar Freeling
@@ -117,58 +143,18 @@ def iniciarFreeling():
 
 
 def traduccionAutomatica(texto):
-    tipo = "informal"
+    tipo = "formal"
     if len(texto) != 0 and texto is not None and texto != "":
             procesado = tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, texto)
-            # PONE ACEITUNA SI EL ARBOL NO ES VALIDO
-            listaTraducir = [('aceituna', 'NCFS00', -1), ]
+            print "primer acercamiento al texto procesado"
+            print procesado
             # Modulo 2
             config = getConfigFile()  # Obtener el archivo de configuracion
             sinStopwords = quitarStopwords(procesado, config, esFormal=(tipo == 'formal'))
-            # Modulo 3
-            arbolValido = ''
-            pasarARicardo = list(sinStopwords)
-            print pasarARicardo
-            pruebaReturn = modulo_main(pasarARicardo)
-            if pruebaReturn is not None:
-                (inOrden, posOrden) = modulo_main(pasarARicardo)
-                if inOrden is not None and posOrden is not None:
-                    if len(inOrden) > 0 or len(posOrden) > 0:
-                        print "LISTA: ", inOrden
-                        # Revisa resultado de lista de prueba
-                        if tipo == 'formal':
-                            listaTraducir = hacerListaTraducir(inOrden)
-                        else:
-                            listaTraducir = hacerListaTraducir(posOrden)
-                    else:
-                        arbolValido = 'La oración no coincide con ninguna gramática registrada. Se hará una traducción literal'
-                        listaTraducir = hacerListaTraducir(sinStopwords)
-                        print "Arbol no encontrado"
-                else:
-                    arbolValido = 'La oración no coincide con ninguna gramática registrada. Se hará una traducción literal'
-                    listaTraducir = hacerListaTraducir(sinStopwords)
-
-                    print "Arbol no encontrado"
-            else:
-                    arbolValido = 'La oración no coincide con ninguna gramática registrada. Se hará una traducción literal'
-                    listaTraducir = hacerListaTraducir(sinStopwords)
-
-                    print "Arbol no encontrado"
-
-            print "#######################################"
-            print "#######################################"
-            print "#######################################"
-            print "texto ingresado "+texto
-            #palabras=""
-            arrayPalabras=[]
-            listaTraducir.reverse()
-            for tupla in listaTraducir:
-
-                #lemma=tupla[0]
-                arrayPalabras.append(tupla[0])
-                #palabras+=lemma+","
-            #print "resultado" 
-            #print arrayPalabras
+            #print "aqui esta lo que estas haciendo"
+            print hacerListaTraducir
+            listaTraducir = hacerListaTraducir(sinStopwords)
+            respuesta=acomodarPalabras(listaTraducir)
+    return respuesta
 
 
-    return arrayPalabras

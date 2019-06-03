@@ -3,7 +3,8 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import sys
+
+#import sys
 import dataBase
 
 def tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, text):
@@ -43,7 +44,7 @@ def tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, text):
         elif a.get_tag()[0] == 'N':
           tag = a.get_tag()[:6]
         elif a.get_tag()[0] == 'V':
-          tag = a.get_tag()[:3] 
+          tag = a.get_tag()[:4] 
         elif a.get_tag()[0] == 'P':
           tag = a.get_tag()[:3]
         elif a.get_tag()[0] == 'C':
@@ -58,6 +59,8 @@ def tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, text):
             tag = a.get_tag()[:2]
         # Guardar (lemma, etiqueta, id_colocacion)
         resultado.append( (a.get_lemma(), tag, -1, w.get_form()) )
+        print "resultado"
+        print resultado
     # Iterar hasta que no haya colocaciones
     foundColocacion = True
     while foundColocacion:

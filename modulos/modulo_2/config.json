@@ -58,7 +58,7 @@
 	},
 	{
 		"etiqueta" : "RG",
-		"dejar" : ["ahora", "antes", "mañana", "tarde", "anoche", "cuando", "después", "pronto", "siempre", "ayer", "anteayer", "temprano", "hoy"],
+		"dejar" : ["ahora", "antes", "mañana", "tarde", "anoche", "cuando", "después", "pronto", "siempre", "ayer", "anteayer", "temprano", "hoy","detenidamente"],
 		"transformar" : [
 			{
 				"lemmaOrigen" : ["ya"],
