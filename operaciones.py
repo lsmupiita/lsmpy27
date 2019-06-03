@@ -158,3 +158,8 @@ def traduccionAutomatica(texto):
     return respuesta
 
 
+
+
+
+
+

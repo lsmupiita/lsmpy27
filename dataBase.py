@@ -73,7 +73,17 @@ def generarCodigo(correo):
     cnx.close()
     return respuesta
 
+def numeroAlumnos(codigo):
+    respuesta=""
+    cnx =abrirConexion()
 
+    cursor = cnx.cursor()
+    query=("select alumnos from profesor where codigo = %s")
+    cursor.execute(query,codigo)
+    results = cursor.fetchall()
+    for row in results:
+        respuesta = row[0]
+    return respuesta
 
 
 def registroProfesor(correo):
@@ -110,12 +120,12 @@ def existenciaAlumno(correo):
     cnx.close()
     return respuesta
 
-def buscarClase(codigo):
+def buscarClase(codigo,correo):
     respuesta=""
     cnx =abrirConexion()
     cursor = cnx.cursor()
-    query=("select clase from alumno where clase = %s")
-    cursor.execute(query,(codigo,))
+    query=("select clase from alumno where clase = %s and correo=%s")
+    cursor.execute(query,(codigo,correo))
     results = cursor.fetchall()
     for row in results:
         respuesta = row[0]
@@ -147,7 +157,7 @@ def entrarClase(codigo,correo):
     respuesta=""
     if existenciaAlumno(correo)=="Correcto":
         if comprobarExistencia(codigo)=="Correcto":
-            if buscarClase(codigo)=="Incorrecto":
+            if buscarClase(codigo,correo)=="Incorrecto":
                 cnx =abrirConexion()
                 cursor = cnx.cursor()
                 query=("select alumnos from profesor where codigo = %s")
@@ -175,7 +185,7 @@ def salirClase(codigo,correo):
     respuesta=""
     if existenciaAlumno(correo)=="Correcto":
         if comprobarExistencia(codigo)=="Correcto":
-            if buscarClase(codigo)=="Correcto":
+            if buscarClase(codigo,correo)=="Correcto":
                 cnx =abrirConexion()
                 cursor = cnx.cursor()
                 query=("select alumnos from profesor where codigo = %s")

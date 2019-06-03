@@ -12,27 +12,53 @@ import dataBase, operaciones
 
 import threading
 import Queue as queue
-
+######################################################
+######################################################
 def dosomething(oracion):
     return operaciones.traduccionAutomatica(oracion)
 
+def unirLista(codigo,traduccion,lista):
+    alumnos=dataBase.numeroAlumnos(codigo)
+    resultado=list()
+    aux=[codigo,alumnos,traduccion]
+    resultado=aux+lista
+    return resultado
+
+def buscarTraduccion(codigo,lista):
+    indice=0
+    for x in lista:
+        if x==codigo:
+            return indice
+        indice+=1
+    return "Sin coincidencia"
+
+def validarStack(indice,stack):
+    print stack[indice+1]
+    if int(stack[indice+1])=="0":
+        print "ya tiene cero alumnos"
+        stack.pop[indice]
+        stack.pop[indice+1]
+        stack.pop[indice+2]
+    else:
+        stack[indice]=int(stack[indice])-1
+    return stack
+
+#######################################################
+#######################################################
 app = Flask(__name__)
 api = Api(app)
 
 parser = reqparse.RequestParser()
 oracionTraducida="Sin oracion"
 token="00000000"
+stack=list()
 
 class EnviarTraduccion(Resource):
     def post(self):
         parser.add_argument('codigo', type=str)
         parser.add_argument('oracion', type=str)
         args = parser.parse_args()
-        print "aqui esta la oracion"
-        print args['oracion']
-        global token
-        token=args['codigo']
-
+        codigo=args['codigo']
         que = queue.Queue()
         thr = threading.Thread(target = lambda q, arg : q.put(dosomething(arg)), args = (que, args['oracion']))
         thr.start()
@@ -40,16 +66,28 @@ class EnviarTraduccion(Resource):
         while not que.empty():
             global oracionTraducida
             oracionTraducida=que.get()
+            global stack
+            stack=unirLista(codigo,oracionTraducida,stack)
         return {
-            'palabras':oracionTraducida
+            'palabras':stack
         }
 class RecibirTraduccion(Resource):
     def post(self):
         parser.add_argument('codigo', type=str)
         args = parser.parse_args()
-        return {
-            'traduccion': oracionTraducida
-        }
+        indice=buscarTraduccion(args['codigo'],stack)
+        print indice
+        if indice!="Sin coincidencia":
+            alumnos=stack[indice+1]
+            palabras=stack[indice+2]
+            global stack
+            stack=validarStack(indice,stack)
+            if alumnos!="0":
+                return {'traduccion': palabras}
+            else:
+                return {'traduccion': 'sin traduccion'}
+        else:
+            return {'traduccion': 'sin traduccion'}
 
     
 class Codigo(Resource):
@@ -119,5 +157,5 @@ api.add_resource(LoginAlumno,'/loginAlumno')
 api.add_resource(Prueba,'/prueba')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost', port=5000)
-    #app.run(debug=True, host='10.0.1.4', port=5000) 
+    #app.run(debug=True, host='localhost', port=5000)
+    app.run(debug=True, host='10.0.1.4', port=5000) 
