@@ -61,6 +61,7 @@ def tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, text):
         resultado.append( (a.get_lemma(), tag, -1, w.get_form()) )
         print "resultado"
         print resultado
+        print resultado[1:]
     # Iterar hasta que no haya colocaciones
     foundColocacion = True
     while foundColocacion:

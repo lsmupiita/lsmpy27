@@ -8,39 +8,15 @@ print "ñaña app"
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 
-import dataBase, operaciones
+import dataBase, moduloFreeling, operacionesStack
 
 import threading
 import Queue as queue
 ######################################################
 ######################################################
 def dosomething(oracion):
-    return operaciones.traduccionAutomatica(oracion)
+    return moduloFreeling.traduccionAutomatica(oracion)
 
-def unirLista(codigo,traduccion,lista):
-    alumnos=dataBase.numeroAlumnos(codigo)
-    resultado=list()
-    aux=[codigo,alumnos,traduccion]
-    resultado=lista+aux
-    return resultado
-
-def buscarTraduccion(codigo,lista):
-    indice=0
-    for x in lista:
-        if x==codigo:
-            return indice
-        indice+=1
-    return "Sin coincidencia"
-
-def validarStack(indice,stack):
-
-    if int(stack[indice+1])=="0":
-
-        stack.pop[indice]
-        stack.pop[indice+1]
-        stack.pop[indice+2]
-
-    return stack
 
 ########################################################
 #######################################################
@@ -58,6 +34,7 @@ class EnviarTraduccion(Resource):
         parser.add_argument('oracion', type=str)
         args = parser.parse_args()
         codigo=args['codigo']
+    
         que = queue.Queue()
         thr = threading.Thread(target = lambda q, arg : q.put(dosomething(arg)), args = (que, args['oracion']))
         thr.start()
@@ -66,30 +43,17 @@ class EnviarTraduccion(Resource):
             global oracionTraducida
             oracionTraducida=que.get()
             global stack
-            stack=unirLista(codigo,oracionTraducida,stack)
-        return {
-            'palabras':stack
-        }
+            stack=operacionesStack.unirLista(codigo,oracionTraducida,stack)
+        return {'palabras':stack}
+
 class RecibirTraduccion(Resource):
     def post(self):
-        parser.add_argument('codigo', type=str)
-        args = parser.parse_args()
-        indice=buscarTraduccion(args['codigo'],stack)
-
-        if indice!="Sin coincidencia":
-            alumnos=stack[indice+1]
-            palabras=stack[indice+2]
-            if alumnos!=0 and (alumnos-1)!=0:
-                stack[indice+1]=int(stack[indice+1])-1
-                return {'traduccion': palabras}
-            else:
-                stack.pop(indice+2)
-                stack.pop(indice+1)
-                stack.pop(indice)
-                return {'traduccion': palabras}
-        else:
-            return {'traduccion': ['sin traduccion']}
-        return {'traduccion': ['sin traduccion']}
+            parser.add_argument('codigo', type=str)
+            parser.add_argument('correo', type=str)
+            args = parser.parse_args()
+            global stack
+            [palabras,stack]=operacionesStack.validarStack(args['codigo'],stack,args['correo'])
+            return {'traduccion': palabras}
 
     
 class Codigo(Resource):

@@ -1,7 +1,7 @@
 [
 	{
 		"etiqueta" : "DP",
-		"dejar" : ["su", "mi", "tu", "nuestro"]
+		"dejar" : [ "mi", "tu", "nuestro"]
 	},
 	{
 		"etiqueta" : "DD",
@@ -15,7 +15,7 @@
 		"etiqueta" : "SP",
 		"formal" : true,
 		"informal" : false,
-		"dejar" : ["ante", "con", "de", "en", "para", "junto_a"]
+		"dejar" : ["ante", "con", "en", "para", "junto_a"]
 	},
 	{
 		"etiqueta" : "SP",

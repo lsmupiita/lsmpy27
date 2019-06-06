@@ -85,6 +85,18 @@ def numeroAlumnos(codigo):
         respuesta = row[0]
     return respuesta
 
+def listaAlumnos(codigo):
+    respuesta=list()
+    cnx =abrirConexion()
+
+    cursor = cnx.cursor()
+    query=("select correo from alumno where clase = %s")
+    cursor.execute(query,codigo)
+    results = cursor.fetchall()
+    for row in results:
+        respuesta.append(row[0])
+    return respuesta
+
 
 def registroProfesor(correo):
     respuesta=""
@@ -317,16 +329,27 @@ def buscarColocacion(tuplaDeTuplas):
         cursor.execute(query, ( tuplaDeTuplas[0][0] , tuplaDeTuplas[1][0], tuplaDeTuplas[2][0],))
         # Iterar resutlados
         for (id, etiqueta1, etiqueta2, etiqueta3, regla) in cursor:
+            
+            tag1=tuplaDeTuplas[0][1]
+            tag2=tuplaDeTuplas[1][1]
+            tag3=tuplaDeTuplas[2][1]
+            if tag1[0]=="V":
+                tag1=tag1[0:3]
+            if tag2[0]=="V":
+                tag2=tag2[0:3]
+            if tag3[0]=="V":
+                tag3=tag3[0:3]
+
             if regla == "1":
-                if etiqueta1 == tuplaDeTuplas[0][1]:
+                if etiqueta1 == tag1:
                     reglaFinal = regla
                     resultado = id
             elif regla == "2":
-                if etiqueta2 == tuplaDeTuplas[1][1]:
+                if etiqueta2 == tag2:
                     reglaFinal = regla
                     resultado = id
             elif regla == "3":
-                if etiqueta3 == tuplaDeTuplas[2][1]:
+                if etiqueta3 == tag3:
                     reglaFinal = regla
                     resultado = id
     else:
@@ -334,12 +357,18 @@ def buscarColocacion(tuplaDeTuplas):
         cursor.execute(query, ( tuplaDeTuplas[0][0] , tuplaDeTuplas[1][0],))
         # Iterar resutlados
         for (id, etiqueta1, etiqueta2, etiqueta3, regla) in cursor:
+            tag1=tuplaDeTuplas[0][1]
+            tag2=tuplaDeTuplas[1][1]
+            if tag1[0]=="V":
+                tag1=tag1[0:3]
+            if tag2[0]=="V":
+                tag2=tag2[0:3]
             if regla == "1":
-                if etiqueta1 == tuplaDeTuplas[0][1]:
+                if etiqueta1 == tag1:
                     reglaFinal = regla
                     resultado = id
             elif regla == "2":
-                if etiqueta2 == tuplaDeTuplas[1][1]:
+                if etiqueta2 == tag2:
                     reglaFinal = regla
                     resultado = id
 

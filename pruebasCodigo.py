@@ -1,32 +1,14 @@
 import dataBase
 
-def unirLista(codigo,traduccion,lista):
-    alumnos=dataBase.numeroAlumnos(codigo)
-    resultado=list()
-    aux=[codigo,alumnos,traduccion]
-    resultado=aux+lista
-    return resultado
+alumnos=list()
 
-def buscarTraduccion(codigo,lista):
-    indice=0
-    for x in lista:
-        if x==codigo:
-            return indice
-        indice+=1
-    return "Sin coincidencia"
-        
+alumnos.append("Fernando")
+alumnos.append("Cesar")
+alumnos.append("Juan")
+print alumnos
 
-traduccion=["cama","suave"]
-stack=["123456","3",["mujer","correr","sola"]]
-codigo="04440224"
-print stack
-stack=unirLista(codigo,traduccion,stack)
-print "resultado final"
-print stack
+alumnos.remove("Fernando")
+print alumnos
 
-print "######################"
-print buscarTraduccion("123456",stack)
-
-print "hacer pop"
-stack.pop(2)
-print stack
+if "ss" in alumnos:
+    print "si esta juan"
