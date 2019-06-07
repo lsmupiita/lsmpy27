@@ -36,20 +36,15 @@ def validarStack(codigo,stack,correo):
         alumnos=stack[indice+1]
         palabras=stack[indice+2]
         if correo in alumnos:
-            if len(alumnos)!=0:
-                print "#############"
-                print stack[indice+1]
-                stack[indice+1].remove(correo)
-                print stack[indice+1]
-                return [palabras,stack]
-            else:
-                print "#############"
-                print stack[indice+1]
-                stack.pop(indice)
-                stack.pop(indice+1)
-                stack.pop(indice+2)
-                return [palabras,stack]
+            print "#############"
+            print stack[indice+1]
+            stack[indice+1].remove(correo)
+            print stack[indice+1]
+            return [palabras,stack]
         else:
+            stack.pop(indice)
+            stack.pop(indice+1)
+            stack.pop(indice+2)
             return [['sin traduccion'],stack]
     else:
         return [['sin traduccion'],stack]
