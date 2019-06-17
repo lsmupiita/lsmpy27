@@ -62,14 +62,18 @@ def hacerListaTraducir(listaArbol):
                 lista.append((lemma, etiqueta, colocacion))
                 if genero == 'F':  # Si es femenino
                     if numero == 'P':  # Si es plural quitara la s o la es al final de la palabra
+                        """
                         if palabraOriginal[-1] == 's' and palabraOriginal[-2] == 'e':
                             palabraComp = palabraOriginal[:-2]
                         else:
                             palabraComp = palabraOriginal[:-1]
+                        
+                        #palabraComp = palabraOriginal[:-1]
                     else:
-                        palabraComp = palabraOriginal
+                        palabraComp = palabraOriginal"""
                     # Compara con el lemma, si no es el mismo lemma añade la seña mujer
-                    if palabraComp != lemma:
+                    #if palabraComp != lemma:
+                    if lemma not in palabraOriginal:
                         lista.append(('mujer', 'NCFS00', colocacion))
                 if numero == 'P':  # Añade seña de muchos si es plural
                     lista.append(('mucho', 'RG', colocacion))
@@ -151,9 +155,9 @@ def traduccionAutomatica(texto):
             # Modulo 2
             config = getConfigFile()  # Obtener el archivo de configuracion
             sinStopwords = quitarStopwords(procesado, config, esFormal=(tipo == 'formal'))
-            #print "aqui esta lo que estas haciendo"
-            print hacerListaTraducir
+            listaTraducir= colocBusc(sinStopwords)
             listaTraducir = hacerListaTraducir(sinStopwords)
+            
             respuesta=acomodarPalabras(listaTraducir)
     return respuesta
 

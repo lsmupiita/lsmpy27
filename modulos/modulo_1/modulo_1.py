@@ -6,6 +6,65 @@ sys.setdefaultencoding('utf-8')
 
 #import sys
 import dataBase
+def colocBusc(resultado):
+
+  foundColocacion = True
+  while foundColocacion:
+    foundColocacion = False
+    # Buscar colocaciones de 3 en 3
+    index = 0
+    for agrupacion in zip(resultado, resultado[1:], resultado[2:]):
+      (idColocacion, regla) = dataBase.buscarColocacion(agrupacion)
+      # Agrupar en una sola palabra
+      if idColocacion != -1:
+        parte1 = resultado.pop(index)
+        parte2 = resultado.pop(index)
+        parte3 = resultado.pop(index)
+        nuevaPalabra = parte1[3] + "_" + parte2[3] + "_" + parte3[3]
+        nuevoLemma = parte1[0] + "_" + parte2[0] + "_" + parte3[0]
+        # Poner etiqueta de acuerdo a la regla
+        colTag = ""
+        if regla == 1:
+          colTag = parte1[1]
+        elif regla == 2:
+          colTag = parte2[1]
+        else:
+          colTag = parte3[1]
+        nuevaTupla = (nuevoLemma, colTag, idColocacion, nuevaPalabra)
+        resultado.insert(index, nuevaTupla)
+        # Volver a iterar
+        foundColocacion = True
+        break
+      index = index + 1
+    if foundColocacion:
+      continue
+    # Buscar colocaciones de 2 en 2
+    index = 0
+    for agrupacion in zip(resultado, resultado[1:]):
+      (idColocacion, regla) = dataBase.buscarColocacion(agrupacion)
+      # Agrupar en una sola palabra
+      if idColocacion != -1:
+        parte1 = resultado.pop(index)
+        parte2 = resultado.pop(index)
+        nuevaPalabra = parte1[3] + "_" + parte2[3]
+        nuevoLemma = parte1[0] + "_" + parte2[0]
+        # Poner etiqueta de acuerdo a la regla
+        colTag = ""
+        if regla == 1:
+          colTag = parte1[1]
+        elif regla == 2:
+          colTag = parte2[1]
+        nuevaTupla = (nuevoLemma, colTag, idColocacion, nuevaPalabra)
+        resultado.insert(index, nuevaTupla)
+        # Volver a iterar
+        foundColocacion = True
+        break
+      index = index + 1
+    if foundColocacion:
+      continue
+
+    return resultado
+
 
 def tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, text):
   """ Separa oraciones, lematiza, etiqueta y busca colocaciones
@@ -63,6 +122,7 @@ def tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, text):
         print resultado
         print resultado[1:]
     # Iterar hasta que no haya colocaciones
+    """
     foundColocacion = True
     while foundColocacion:
       foundColocacion = False
@@ -116,11 +176,10 @@ def tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, text):
           break
         index = index + 1
       if foundColocacion:
-        continue
+        continue"""
+  return colocBusc(resultado)
 
-  # Regresar
-  #sp.close_session(sid);
-  return resultado
+  
 
 
     
