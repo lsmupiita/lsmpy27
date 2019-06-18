@@ -53,6 +53,24 @@ def comprobarExistencia(codigo):
     cnx.close()
     return respuesta
 
+def comprobarExistenciaCorreo(correo):
+    respuesta=""
+    cnx =abrirConexion()
+    cursor = cnx.cursor()
+    query=("select correo from profesor where correo = %s")
+    cursor.execute(query,(correo,))
+    results = cursor.fetchall()
+    for row in results:
+        respuesta = row[0]
+    if len(respuesta)!=0:
+        respuesta = "Correcto"
+    else:
+        respuesta = "Incorrecto"
+    cursor.close()
+    cnx.commit()
+    cnx.close()
+    return respuesta
+
 def generarCodigo(correo):
     respuesta=""
     cnx =abrirConexion()
@@ -100,7 +118,8 @@ def listaAlumnos(codigo):
 
 def registroProfesor(correo):
     respuesta=""
-    if len(generarCodigo(correo))!=8:
+    #if len(generarCodigo(correo))!=8:
+    if comprobarExistenciaCorreo(correo)=="Incorrecto":
         cnx =abrirConexion()
         cursor = cnx.cursor()
         query=("insert into profesor (correo, codigo, alumnos)values(%s,%s,0)")
