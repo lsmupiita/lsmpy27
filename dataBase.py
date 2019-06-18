@@ -101,6 +101,9 @@ def numeroAlumnos(codigo):
     results = cursor.fetchall()
     for row in results:
         respuesta = row[0]
+    cursor.close()
+    cnx.commit()
+    cnx.close()
     return respuesta
 
 def listaAlumnos(codigo):
@@ -113,6 +116,9 @@ def listaAlumnos(codigo):
     results = cursor.fetchall()
     for row in results:
         respuesta.append(row[0])
+    cursor.close()
+    cnx.commit()
+    cnx.close()
     return respuesta
 
 
@@ -201,6 +207,7 @@ def entrarClase(codigo,correo):
                 cursor.execute(query,(alumnos,codigo))
                 query=("update alumno set clase=%s where correo=%s")
                 cursor.execute(query,(codigo,correo))
+                cursor.close()
                 cnx.commit()
                 cnx.close()
                 respuesta="Bienvenido"
@@ -229,6 +236,7 @@ def salirClase(codigo,correo):
                 cursor.execute(query,(alumnos,codigo))
                 query=("update alumno set clase=%s where correo=%s")
                 cursor.execute(query,("00000000",correo))
+                cursor.close()
                 cnx.commit()
                 cnx.close()
                 respuesta="Saliste con exito"
@@ -248,6 +256,7 @@ def terminarClase(codigo):
     cursor.execute(query,("0",codigo))
     query=("update alumno set clase=%s where clase=%s")
     cursor.execute(query,("00000000",codigo))
+    cursor.close()
     cnx.commit()
     cnx.close()
     respuesta="Termino con exito"
@@ -393,6 +402,7 @@ def buscarColocacion(tuplaDeTuplas):
 
     # id, palabra1, palabra2, palabra3, etiqueta1, etiqueta2, etiqueta3, regla
     cursor.close()
+    cnx.comm
     cnx.commit()
     cnx.close()
     return (resultado, int(reglaFinal))
