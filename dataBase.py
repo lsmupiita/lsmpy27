@@ -402,7 +402,6 @@ def buscarColocacion(tuplaDeTuplas):
 
     # id, palabra1, palabra2, palabra3, etiqueta1, etiqueta2, etiqueta3, regla
     cursor.close()
-    cnx.comm
     cnx.commit()
     cnx.close()
     return (resultado, int(reglaFinal))
