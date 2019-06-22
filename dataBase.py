@@ -123,6 +123,19 @@ def listaAlumnos(codigo):
 
 
 def registroProfesor(correo):
+    error=False
+    cnx =abrirConexion()
+    cursor = cnx.cursor()
+    query=("insert into profesor (correo, codigo, alumnos)values(%s,%s,0)")
+    try:
+        cursor.execute(query,(correo, crearCodigo(correo)))
+    except:
+        error=True
+    if error:
+        respuesta="El correo ya existe"
+    else:
+        respuesta="Registro exitoso"
+    """
     respuesta=""
     #if len(generarCodigo(correo))!=8:
     if comprobarExistenciaCorreo(correo)=="Incorrecto":
@@ -136,7 +149,10 @@ def registroProfesor(correo):
         cnx.close()
     else:
         respuesta = "El correo ya existe"
-
+"""
+    cursor.close()
+    cnx.commit()
+    cnx.close()
     return respuesta
 
 def existenciaAlumno(correo):
