@@ -73,17 +73,16 @@ def hacerListaTraducir(listaArbol):
                         palabraComp = palabraOriginal"""
                     # Compara con el lemma, si no es el mismo lemma añade la seña mujer
                     #if palabraComp != lemma:
-                    if lemma not in palabraOriginal:
+                    if lemma.lower() not in palabraOriginal.lower():
                         lista.append(('mujer', 'NCFS00', colocacion))
                 if numero == 'P':  # Añade seña de muchos si es plural
                     lista.append(('mucho', 'RG', colocacion))
             elif etiqueta[0]=='V':
-                print "Encontre un verbo"
                 lista.append((lemma, etiqueta, colocacion))
                 tiempo=etiqueta[3]
-                if tiempo == 'F':
+                #if tiempo == 'F':
                  #   print "futuro"
-                    lista.append(('mañana', 'RG', colocacion))
+                 #   lista.append(('mañana', 'RG', colocacion))
             else:
                 lista.append((lemma, etiqueta, colocacion))
         else:

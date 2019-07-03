@@ -1,7 +1,15 @@
 [
 	{
+		"etiqueta" : "CC",
+		"quitar" : [ "y"]
+	},
+	{
+		"etiqueta" : "VSIP",
+		"quitar" : [ "ser"]
+	},
+	{
 		"etiqueta" : "DP",
-		"dejar" : [ "mi", "tu", "nuestro"]
+		"dejar" : [ "mi", "tu"]
 	},
 	{
 		"etiqueta" : "DD",
@@ -47,6 +55,10 @@
 	{
 		"etiqueta" : "PD",
 		"dejar" : ["este", "aquel", "ese"]
+	},
+	{
+		"etiqueta" : "PP",
+		"quitar" : ["le"]
 	},
 	{
 		"etiqueta" : "PI",
