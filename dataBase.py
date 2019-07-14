@@ -135,21 +135,7 @@ def registroProfesor(correo):
         respuesta="El correo ya existe"
     else:
         respuesta="Registro exitoso"
-    """
-    respuesta=""
-    #if len(generarCodigo(correo))!=8:
-    if comprobarExistenciaCorreo(correo)=="Incorrecto":
-        cnx =abrirConexion()
-        cursor = cnx.cursor()
-        query=("insert into profesor (correo, codigo, alumnos)values(%s,%s,0)")
-        cursor.execute(query,(correo, crearCodigo(correo)))
-        respuesta = "Registro exitoso"
-        cursor.close()
-        cnx.commit()
-        cnx.close()
-    else:
-        respuesta = "El correo ya existe"
-"""
+
     cursor.close()
     cnx.commit()
     cnx.close()
@@ -297,10 +283,10 @@ def buscarPalabra(tupla):
     etiqueta = tupla[1]
     colocacion = tupla[2]
 
-    print 'Entra a consulta: ', lemma
+    print 'Entra a consulta: ', lemma.encode('utf-8')
 
     if colocacion == -1:
-        query = ("SELECT palabra, sprite FROM general WHERE lemma LIKE %s COLLATE utf8_bin AND etiqueta LIKE %s LIMIT 1")
+        query = ("SELECT palabra, sprite FROM general WHERE lemma LIKE %s AND etiqueta LIKE %s LIMIT 1")
         cursor.execute(query, (lemma,etiqueta[0]+'%'))
 
         # Llena una lista con el resultado de la busqueda
@@ -311,7 +297,7 @@ def buscarPalabra(tupla):
         # Si no encontro nada
         if len(resultado) == 0:
             # Revisa la tabla de sinonimos lsm
-            query = ("SELECT id_general FROM sinonimoslsm WHERE lemma LIKE %s COLLATE utf8_bin AND etiqueta LIKE %s LIMIT 1")
+            query = ("SELECT id_general FROM sinonimoslsm WHERE lemma LIKE %s AND etiqueta LIKE %s LIMIT 1")
             cursor.execute(query, (lemma,etiqueta[0]+'%'))
             id_general = cursor.fetchone()
             if id_general: # Si encontro algo en la tabla de sinonimoslsm
@@ -322,7 +308,7 @@ def buscarPalabra(tupla):
                     resultado.append((palabra.encode('utf-8'), sprite.encode('utf-8')))
             else:  # Si no encotro nada en sinonimos lsm
                 # Revisa la tabla de sinonimos en espanol
-                query = ("SELECT id_general FROM sinonimosespanol WHERE lemma LIKE %s COLLATE utf8_bin AND etiqueta LIKE %s LIMIT 1")
+                query = ("SELECT id_general FROM sinonimosespanol WHERE lemma LIKE %s AND etiqueta LIKE %s LIMIT 1")
                 cursor.execute(query, (lemma,etiqueta[0]+'%'))
                 id_general = cursor.fetchone()
                 if id_general:
@@ -334,7 +320,7 @@ def buscarPalabra(tupla):
                 # Si no hubo coincidencia en sinonimos lo deletrea
                 else:
                     for letra in lemma:
-                        query = ("SELECT palabra, sprite FROM general WHERE lemma LIKE %s COLLATE utf8_bin LIMIT 1")
+                        query = ("SELECT palabra, sprite FROM general WHERE lemma LIKE %s LIMIT 1")
                         print 'BUSCAR: ',letra
                         cursor.execute(query, (letra,))
                         for (palabra, sprite) in cursor:

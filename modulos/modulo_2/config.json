@@ -23,7 +23,7 @@
 		"etiqueta" : "SP",
 		"formal" : true,
 		"informal" : false,
-		"dejar" : ["ante", "con", "en", "para", "junto_a"]
+		"dejar" : ["ante", "con", "en", "para", "junto_a","hasta"]
 	},
 	{
 		"etiqueta" : "SP",
@@ -70,7 +70,7 @@
 	},
 	{
 		"etiqueta" : "RG",
-		"dejar" : ["ahora", "antes", "mañana", "tarde", "anoche", "cuando", "después", "pronto", "siempre", "ayer", "anteayer", "temprano", "hoy","detenidamente"],
+		"dejar" : ["allende", "Allende", "ahora", "antes", "mañana", "tarde", "anoche", "cuando", "después", "pronto", "siempre", "ayer", "anteayer", "temprano", "hoy","detenidamente","luego"],
 		"transformar" : [
 			{
 				"lemmaOrigen" : ["ya"],

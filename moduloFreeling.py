@@ -43,7 +43,9 @@ def consultarLista(listaArbol):
             lista.append(img)
             # Guarda la palabra como fue obtenida de la BD
             listaBD.append(fila[0])
-    return (lista, listaBD)
+    #return (lista, listaBD)
+    #return (lista, listaBD)
+    return listaBD
 
 
 def hacerListaTraducir(listaArbol):
@@ -99,9 +101,9 @@ def acomodarPalabras(listaPalabras):
         colocacion = tupla[2]
         etiqueta = getTagPrefix(etiqueta)
         if etiqueta[0] == 'V':
-            lista.append(lemma)
+            lista.append((lemma, etiqueta, colocacion))
         else:
-            listaaux.append(lemma)
+            listaaux.append((lemma, etiqueta, colocacion))
     lista=listaaux+lista
     return lista
 
@@ -155,9 +157,14 @@ def traduccionAutomatica(texto):
             config = getConfigFile()  # Obtener el archivo de configuracion
             sinStopwords = quitarStopwords(procesado, config, esFormal=(tipo == 'formal'))
             listaTraducir= colocBusc(sinStopwords)
-            listaTraducir = hacerListaTraducir(sinStopwords)
+            print "hoa"
+            print listaTraducir
+            listaTraducir = hacerListaTraducir(listaTraducir)
+            listaTraducir=acomodarPalabras(listaTraducir)
+            respuesta=consultarLista(listaTraducir)
+            print "Aqui esta lo ultimo prro"
+            print respuesta
             
-            respuesta=acomodarPalabras(listaTraducir)
     return respuesta
 
 
