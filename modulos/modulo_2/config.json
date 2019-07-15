@@ -5,11 +5,11 @@
 	},
 	{
 		"etiqueta" : "VSIP",
-		"quitar" : [ "ser"]
+		"quitar" : [ "ser", "haber"]
 	},
 	{
 		"etiqueta" : "DP",
-		"dejar" : [ "mi", "tu"]
+		"dejar" : [ "mi", "tu","nuestro"]
 	},
 	{
 		"etiqueta" : "DD",
