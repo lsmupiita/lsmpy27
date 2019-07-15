@@ -155,15 +155,14 @@ def traduccionAutomatica(texto):
             print procesado
             # Modulo 2
             config = getConfigFile()  # Obtener el archivo de configuracion
+            procesado=colocBusc(procesado)
             sinStopwords = quitarStopwords(procesado, config, esFormal=(tipo == 'formal'))
             listaTraducir= colocBusc(sinStopwords)
             print "hoa"
             print listaTraducir
             listaTraducir = hacerListaTraducir(listaTraducir)
-            listaTraducir=acomodarPalabras(listaTraducir)
+            respuesta=acomodarPalabras(listaTraducir)
             respuesta=consultarLista(listaTraducir)
-            print "Aqui esta lo ultimo prro"
-            print respuesta
             
     return respuesta
 

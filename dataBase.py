@@ -321,7 +321,7 @@ def buscarPalabra(tupla):
                 else:
                     for letra in lemma:
                         query = ("SELECT palabra, sprite FROM general WHERE lemma LIKE %s LIMIT 1")
-                        print 'BUSCAR: ',letra
+                        print 'BUSCAR: ',letra.encode('utf-8')
                         cursor.execute(query, (letra,))
                         for (palabra, sprite) in cursor:
                             print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
