@@ -3,6 +3,7 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+import time
 
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
@@ -29,6 +30,7 @@ stack=list()
 
 class EnviarTraduccion(Resource):
     def post(self):
+        tic=time.clock()
         parser.add_argument('codigo', type=str)
         parser.add_argument('oracion', type=str)
         args = parser.parse_args()
@@ -43,6 +45,9 @@ class EnviarTraduccion(Resource):
                 oracionTraducida=que.get()
                 global stack
                 stack=operacionesStack.unirLista(codigo,oracionTraducida,stack)
+        toc=time.clock()
+        print "tiempo"
+        print toc-tic
         return stack
 
 class RecibirTraduccion(Resource):

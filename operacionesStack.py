@@ -37,7 +37,6 @@ def validarStack(codigo,stack,correo):
         palabras=stack[indice+2]
         if correo in alumnos:
             if len(alumnos)!=1:
-                print "#############"
                 print stack[indice+1]
                 stack[indice+1].remove(correo)
                 print stack[indice+1]

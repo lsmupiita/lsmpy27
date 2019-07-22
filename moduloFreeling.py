@@ -150,14 +150,11 @@ def traduccionAutomatica(texto):
     tipo = "formal"
     if len(texto) != 0 and texto is not None and texto != "":
             procesado = tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, texto)
-            print "primer acercamiento al texto procesado"
-            print procesado
             # Modulo 2
             config = getConfigFile()  # Obtener el archivo de configuracion
             procesado=colocBusc(procesado)
             sinStopwords = quitarStopwords(procesado, config, esFormal=(tipo == 'formal'))
             listaTraducir= colocBusc(sinStopwords)
-            print "hoa"
             print listaTraducir
             listaTraducir = hacerListaTraducir(listaTraducir)
             respuesta=acomodarPalabras(listaTraducir)

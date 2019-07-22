@@ -116,9 +116,6 @@ def quitarStopwords(listaOriginal, archivoConfig, esFormal = True):
     Returns:
         una copia de la lista original pero ya con las palabras removidas
     """
-    print "si llega aqui"
-    for f in listaOriginal:
-        print f
     # Procesar
     listaResultante = list()
     for (lemma, tag, id_colocacion, palabra) in listaOriginal:
