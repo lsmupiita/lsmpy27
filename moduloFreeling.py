@@ -4,7 +4,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-print "ñañañaña"
 import freeling
 # Para hacer operaciones con la BD
 import dataBase

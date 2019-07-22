@@ -3,7 +3,6 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-print "ñaña app"
 
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
@@ -34,16 +33,16 @@ class EnviarTraduccion(Resource):
         parser.add_argument('oracion', type=str)
         args = parser.parse_args()
         codigo=args['codigo']
-    
-        que = queue.Queue()
-        thr = threading.Thread(target = lambda q, arg : q.put(dosomething(arg)), args = (que, args['oracion']))
-        thr.start()
-        thr.join()
-        while not que.empty():
-            global oracionTraducida
-            oracionTraducida=que.get()
-            global stack
-            stack=operacionesStack.unirLista(codigo,oracionTraducida,stack)
+        if dataBase.numeroAlumnos(codigo)!=0:
+            que = queue.Queue()
+            thr = threading.Thread(target = lambda q, arg : q.put(dosomething(arg)), args = (que, args['oracion']))
+            thr.start()
+            thr.join()
+            while not que.empty():
+                global oracionTraducida
+                oracionTraducida=que.get()
+                global stack
+                stack=operacionesStack.unirLista(codigo,oracionTraducida,stack)
         return stack
 
 class RecibirTraduccion(Resource):
