@@ -21,7 +21,7 @@
 	},
 	{
 		"etiqueta" : "DI",
-		"quitar" : []
+		"dejar" : [ "mucho"]
 	},
 	{
 		"etiqueta" : "SP",

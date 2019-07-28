@@ -14,13 +14,16 @@ def unirLista(codigo,traduccion,lista):
     return resultado"""
 
 def unirLista(codigo,traduccion,lista):
-    alumnos=dataBase.listaAlumnos(codigo)
-    print alumnos
-    resultado=list()
-    aux=[codigo,alumnos,traduccion]
-    resultado=lista+aux
-    print resultado
-    return resultado
+    print "aqui culero"
+    print len(traduccion)
+    if len(traduccion)>0:
+        alumnos=dataBase.listaAlumnos(codigo)
+        resultado=list()
+        aux=[codigo,alumnos,traduccion]
+        resultado=lista+aux
+        print resultado
+        return resultado
+    return lista
 
 def buscarTraduccion(codigo,lista):
     indice=0
