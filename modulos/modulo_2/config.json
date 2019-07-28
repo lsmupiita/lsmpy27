@@ -8,6 +8,10 @@
 		"quitar" : [ "ser", "haber"]
 	},
 	{
+		"etiqueta" : "VSIS",
+		"quitar" : [ "ser"]
+	},
+	{
 		"etiqueta" : "DP",
 		"dejar" : [ "mi", "tu","nuestro"]
 	},
@@ -23,7 +27,13 @@
 		"etiqueta" : "SP",
 		"formal" : true,
 		"informal" : false,
-		"dejar" : ["ante", "con", "en", "para", "junto_a","hasta"]
+		"dejar" : ["ante", "con", "en", "para", "junto_a","hasta"],
+		"transformar" : [
+			{
+				"lemmaOrigen" : ["de_acuerdo_con"],
+				"lemmaDestino" : "acorde"
+			}
+		]
 	},
 	{
 		"etiqueta" : "SP",
@@ -66,7 +76,7 @@
 	},
 	{
 		"etiqueta" : "DA",
-		"quitar" : []
+		"quitar" : ["el"]
 	},
 	{
 		"etiqueta" : "RG",

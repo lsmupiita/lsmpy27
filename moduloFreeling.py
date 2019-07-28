@@ -26,7 +26,14 @@ parser = None
 dep = None
 
 # Consulta una lista de palabras en la BD
-
+def separarNumero(numero):
+    numeros=[]
+    numero=int(numero)
+    centenas=numero/100*100
+    tmp = numero % 100
+    decenas = tmp / 10*10
+    unidades = tmp % 10
+    return[centenas,decenas,unidades]
 
 def consultarLista(listaArbol):
     lista = []
@@ -76,14 +83,11 @@ def hacerListaTraducir(listaArbol):
                     #if palabraComp != lemma:
                     if lemma.lower() not in palabraOriginal.lower():
                         lista.append(('mujer', 'NCFS00', colocacion))
-                if numero == 'P':  # Añade seña de muchos si es plural
+                if numero == 'P' and palabraOriginal!="gracias":  # Añade seña de muchos si es plural
                     lista.append(('mucho', 'RG', colocacion))
-            elif etiqueta[0]=='V':
-                lista.append((lemma, etiqueta, colocacion))
-                tiempo=etiqueta[3]
-                #if tiempo == 'F':
-                 #   print "futuro"
-                 #   lista.append(('mañana', 'RG', colocacion))
+            elif etiqueta[0]=='Z':
+                for x in separarNumero(palabraOriginal):
+                    lista.append((str(x), 'Z', colocacion))
             else:
                 lista.append((lemma, etiqueta, colocacion))
         else:
@@ -103,8 +107,8 @@ def acomodarPalabras(listaPalabras):
             lista.append((lemma, etiqueta, colocacion))
         else:
             listaaux.append((lemma, etiqueta, colocacion))
-    lista=listaaux+lista
-    return lista
+    
+    return listaaux+lista
 
 # Inicializar Freeling
 
@@ -150,6 +154,7 @@ def traduccionAutomatica(texto):
     tipo = "formal"
     if len(texto) != 0 and texto is not None and texto != "":
             procesado = tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, texto)
+            print procesado
             # Modulo 2
             config = getConfigFile()  # Obtener el archivo de configuracion
             procesado=colocBusc(procesado)
@@ -158,7 +163,7 @@ def traduccionAutomatica(texto):
             print listaTraducir
             listaTraducir = hacerListaTraducir(listaTraducir)
             respuesta=acomodarPalabras(listaTraducir)
-            respuesta=consultarLista(listaTraducir)
+            respuesta=consultarLista(respuesta)
             
     return respuesta
 
