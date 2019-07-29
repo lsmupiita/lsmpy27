@@ -105,6 +105,9 @@ def acomodarPalabras(listaPalabras):
         etiqueta = getTagPrefix(etiqueta)
         if etiqueta[0] == 'V':
             lista.append((lemma, etiqueta, colocacion))
+        elif lemma=="nueva_españa":
+            lista.append(("nuevo", "AQ0", colocacion))
+            lista.append(("español", "AQ0", colocacion))
         else:
             listaaux.append((lemma, etiqueta, colocacion))
     

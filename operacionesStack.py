@@ -14,8 +14,6 @@ def unirLista(codigo,traduccion,lista):
     return resultado"""
 
 def unirLista(codigo,traduccion,lista):
-    print "aqui culero"
-    print len(traduccion)
     if len(traduccion)>0:
         alumnos=dataBase.listaAlumnos(codigo)
         resultado=list()
