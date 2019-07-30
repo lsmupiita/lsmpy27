@@ -18,7 +18,7 @@ def unirLista(codigo,traduccion,lista):
         alumnos=dataBase.listaAlumnos(codigo)
         resultado=list()
         aux=[codigo,alumnos,traduccion]
-        resultado=lista+aux
+        resultado=aux+lista
         print resultado
         return resultado
     return lista

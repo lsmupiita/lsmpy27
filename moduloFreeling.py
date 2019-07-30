@@ -78,7 +78,7 @@ def hacerListaTraducir(listaArbol):
                     #if palabraComp != lemma:
                     if lemma.lower() not in palabraOriginal.lower():
                         lista.append(('mujer', 'NCFS00', colocacion))
-                if numero == 'P' and palabraOriginal!="gracias":  # Añade seña de muchos si es plural
+                if numero == 'P' and palabraOriginal!="gracias" and palabraOriginal!="rostros":  # Añade seña de muchos si es plural
                     lista.append(('mucho', 'RG', colocacion))
             elif etiqueta[0]=='Z':
                 for x in separarNumero(palabraOriginal):

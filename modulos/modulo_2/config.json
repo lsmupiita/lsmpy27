@@ -12,6 +12,10 @@
 		"quitar" : [ "ser"]
 	},
 	{
+		"etiqueta" : "VMII",
+		"quitar" : [ "estar"]
+	},
+	{
 		"etiqueta" : "DP",
 		"dejar" : [ "mi", "tu","nuestro"]
 	},
