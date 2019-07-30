@@ -36,17 +36,12 @@ def separarNumero(numero):
     return[centenas,decenas,unidades]
 
 def consultarLista(listaArbol):
-    lista = []
     listaBD = []
     # Busca las imagenes contenidas en la lista
     for tupla in listaArbol:
         busq = dataBase.buscarPalabra(tupla)
         # El resultado puede ser una lista (si fue deletreada), itera sobre ella
         for fila in busq:
-            # Guarda la ruta de la imagen
-            img = fila[0].decode('utf-8').upper() + '/' + \
-                fila[1].decode('utf-8')
-            lista.append(img)
             # Guarda la palabra como fue obtenida de la BD
             listaBD.append(fila[0])
     #return (lista, listaBD)
@@ -167,6 +162,7 @@ def traduccionAutomatica(texto):
             listaTraducir = hacerListaTraducir(listaTraducir)
             respuesta=acomodarPalabras(listaTraducir)
             respuesta=consultarLista(respuesta)
+            print respuesta
             
     return respuesta
 

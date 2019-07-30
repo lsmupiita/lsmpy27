@@ -283,16 +283,16 @@ def buscarPalabra(tupla):
     etiqueta = tupla[1]
     colocacion = tupla[2]
 
-    print 'Entra a consulta: ', lemma.encode('utf-8')
+    #print 'Entra a consulta: ', lemma.encode('utf-8')
 
     if colocacion == -1:
-        query = ("SELECT palabra, sprite FROM general WHERE lemma LIKE %s AND etiqueta LIKE %s LIMIT 1")
+        query = ("SELECT palabra FROM general WHERE lemma LIKE %s AND etiqueta LIKE %s LIMIT 1")
         cursor.execute(query, (lemma,etiqueta[0]+'%'))
 
         # Llena una lista con el resultado de la busqueda
-        for (palabra, sprite) in cursor:
-            print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
-            resultado.append((palabra.encode('utf-8'), sprite.encode('utf-8')))
+        for palabra in cursor:
+            #print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
+            resultado.append(palabra)
 
         # Si no encontro nada
         if len(resultado) == 0:
@@ -301,42 +301,42 @@ def buscarPalabra(tupla):
             cursor.execute(query, (lemma,etiqueta[0]+'%'))
             id_general = cursor.fetchone()
             if id_general: # Si encontro algo en la tabla de sinonimoslsm
-                query = ("SELECT palabra, sprite FROM general WHERE id = %s LIMIT 1")
+                query = ("SELECT palabra FROM general WHERE id = %s LIMIT 1")
                 cursor.execute(query, id_general)   
-                for (palabra, sprite) in cursor:
-                    print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
-                    resultado.append((palabra.encode('utf-8'), sprite.encode('utf-8')))
+                for palabra in cursor:
+                    #print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
+                    resultado.append(palabra)
             else:  # Si no encotro nada en sinonimos lsm
                 # Revisa la tabla de sinonimos en espanol
                 query = ("SELECT id_general FROM sinonimosespanol WHERE lemma LIKE %s AND etiqueta LIKE %s LIMIT 1")
                 cursor.execute(query, (lemma,etiqueta[0]+'%'))
                 id_general = cursor.fetchone()
                 if id_general:
-                    query = ("SELECT palabra, sprite FROM general WHERE id = %s LIMIT 1")
+                    query = ("SELECT palabra FROM general WHERE id = %s LIMIT 1")
                     cursor.execute(query, id_general)   
-                    for (palabra, sprite) in cursor:
-                        print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
-                        resultado.append((palabra.encode('utf-8'), sprite.encode('utf-8')))
+                    for palabra in cursor:
+                        #print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
+                        resultado.append(palabra)
                 # Si no hubo coincidencia en sinonimos lo deletrea
                 else:
                     for letra in lemma:
-                        query = ("SELECT palabra, sprite FROM general WHERE lemma LIKE %s LIMIT 1")
+                        query = ("SELECT palabra FROM general WHERE lemma LIKE %s LIMIT 1")
                         print 'BUSCAR: ',letra.encode('utf-8')
                         cursor.execute(query, (letra,))
-                        for (palabra, sprite) in cursor:
-                            print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
-                            resultado.append((palabra.encode('utf-8'), sprite.encode('utf-8')))
+                        for palabra in cursor:
+                            #print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
+                            resultado.append(palabra)
     else:
         # Revisa la tabla de colocaciones
         query = ("SELECT id_general FROM colocaciones WHERE id = %s LIMIT 1")
         cursor.execute(query, (colocacion,))
         id_general = cursor.fetchone()
         if id_general: # Si encontro algo en la tabla de colocaciones
-            query = ("SELECT palabra, sprite FROM general WHERE id = %s LIMIT 1")
+            query = ("SELECT palabra FROM general WHERE id = %s LIMIT 1")
             cursor.execute(query, id_general)   
-            for (palabra, sprite) in cursor:
-                print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
-                resultado.append((palabra.encode('utf-8'), sprite.encode('utf-8')))
+            for palabra in cursor:
+                #print("{}, {}".format(palabra.encode('utf-8'), sprite.encode('utf-8')))
+                resultado.append(palabra)
         else:
             print 'Error buscando la colocacion'
 
