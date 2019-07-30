@@ -35,6 +35,8 @@ class EnviarTraduccion(Resource):
         parser.add_argument('oracion', type=str)
         args = parser.parse_args()
         codigo=args['codigo']
+        print "Oracion Recibida del Dispositivo Movil"
+        print args['oracion']
         if dataBase.numeroAlumnos(codigo)!=0:
             que = queue.Queue()
             thr = threading.Thread(target = lambda q, arg : q.put(dosomething(arg)), args = (que, args['oracion']))
@@ -43,6 +45,8 @@ class EnviarTraduccion(Resource):
             while not que.empty():
                 global oracionTraducida
                 oracionTraducida=que.get()
+                print "Resultado de la Traduccion Automatica"
+                print oracionTraducida
                 global stack
                 stack=operacionesStack.unirLista(codigo,oracionTraducida,stack)
         toc=timeit.default_timer()

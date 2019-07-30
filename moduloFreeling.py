@@ -152,16 +152,26 @@ def traduccionAutomatica(texto):
     tipo = "formal"
     if len(texto) != 0 and texto is not None and texto != "":
             procesado = tokenLemmaColoc(tk, sp, sid, mf, tg, sen, parser, dep, texto)
+            print "Procesamiento de Lenguaje Natural"
+            print "Tokenizado, Lemmatizado y Detección de Colocaciones"
             print procesado
             # Modulo 2
             config = getConfigFile()  # Obtener el archivo de configuracion
             procesado=colocBusc(procesado)
+            print "Texto despues de busqueda de colocaciones"
+            print procesado
             sinStopwords = quitarStopwords(procesado, config, esFormal=(tipo == 'formal'))
             listaTraducir= colocBusc(sinStopwords)
+            print "Texto sin StopWords"
             print listaTraducir
             listaTraducir = hacerListaTraducir(listaTraducir)
+            print "Agregacion del femenino y el plural a las palabras"
+            print listaTraducir
             respuesta=acomodarPalabras(listaTraducir)
+            print "Acomodo de los elementos de la oracion con base en las reglas establecidas"
+            print respuesta
             respuesta=consultarLista(respuesta)
+            print "Oracion resultante con las palabras recopiladas de una clase de historia"
             print respuesta
             
     return respuesta
