@@ -11,8 +11,8 @@ import pymysql
 #Conexion a la base de datos
 def abrirConexion():
     cnx = pymysql.connect(
-        host="34.67.125.250", port=3306, user="lsmupiita",
-        passwd="lsmupiita", db="lsmupiita"
+        host="34.68.53.40", port=3306, user="albin",
+        passwd="albin", db="albin"
     )
     return cnx
 
